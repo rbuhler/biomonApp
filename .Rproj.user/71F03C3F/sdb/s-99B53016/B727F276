@@ -1,0 +1,16 @@
+{
+    "contents" : "glb <- new('Global', 'biomon')\nbio <- new('Action')\n\nshinyServer(\n  function(input, output, session) {    \n    #--- Local data definition\n    analysisFolder <- Global.getAnalysis(glb)\n    matricesFolder <- Global.getMatrices(glb)\n    \n    anlzFilNames <- c('Choose ...', list.files(analysisFolder))\n    mtrsFilNames <- c('Choose ...', list.files(matricesFolder))\n    \n    #--- DROP-DOWN Analysis\n    output$sInputAnalysis <- renderUI({\n      if(length(input$sInputAnalysis) == 0 ){\n        selectInput('inpAnalysis', 'Analysis', as.list(anlzFilNames))\n      }\n    })\n    #--- DROP-DOWN Matrices\n    output$sInputAttributes <- renderUI({\n        selectInput('inpAttributes', 'Attributes', as.list(mtrsFilNames))\n    })\n    output$sInputSpecies <- renderUI({\n      selectInput('inpSpecies', 'Species', as.list(mtrsFilNames))\n    })\n    output$sInputFactor <- renderUI({\n      selectInput('inpFactor', 'Factors', as.list(mtrsFilNames))\n    })\n    output$sInputEnvironment <- renderUI({\n      selectInput('inpEnvironment', 'Environment', as.list(mtrsFilNames))\n    })\n    output$sInputSpace <- renderUI({\n      selectInput('inpSpace', 'Space', as.list(mtrsFilNames))\n    })\n    #--- PUSHBUTTON Execute\n    output$execMsg <- renderPrint({\n      # Take a dependency on input$goButton\n      if (input$btnExecute > 0 ){\n        vAnalysisFile <- paste0(gbl.analysis, input$inpAnalysis)\n        Action.btnExecute(bio, vAnalysisFile)\n      }\n    })\n    #--- FOLDER paths    \n    output$matricesPath <- renderText({ \n      paste( matricesFolder )\n    })\n    output$analysisPath <- renderText({ \n      paste( analysisFolder )\n    })\n# --- GLOBAL values\n    observe(gbl.mAttributes  <<- paste0(gbl.matrices, input$inpAttributes))\n    observe(gbl.mEnvironment <<- paste0(gbl.matrices, input$inpEnvironment))\n    observe(gbl.mFactor      <<- paste0(gbl.matrices, input$inpFactor))\n    observe(gbl.mSpace       <<- paste0(gbl.matrices, input$inpSpece))\n    observe(gbl.mSpecies     <<- paste0(gbl.matrices, input$inpSpecies))\n\n    observe(gbl.mAnalysis    <<- paste0(gbl.analysis, input$inpAnalysis))\n\n# --- UPLOAD analysis\n  output$analysisUploaded <- renderText({\n    inFile1 <- input$file1\n  \n  if (is.null(inFile1)){\n    return(NULL)\n  }else{\n    file.copy(inFile1$datapath, paste0(analysisFolder,inFile1$name), overwrite=TRUE, copy.mode=TRUE)  \n    return(\"[Refresh the page]\")\n  }\n  })\n\n# --- UPLOAD matrices\n  output$matrixUploaded <- renderText({\n    inFile2 <- input$file2\n    \n    if (is.null(inFile2)){\n      return(NULL)\n    }else{\n      file.copy(inFile2$datapath, paste0(matricesFolder,inFile2$name), overwrite=TRUE, copy.mode=TRUE)  \n      return(\"[Refresh the page]\")\n    }\n  })\n  } #Function\n)",
+    "created" : 1423617608927.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "3647510681",
+    "id" : "B727F276",
+    "lastKnownWriteTime" : 1423427792,
+    "path" : "~/Dev/R/biomonApp/server.R",
+    "project_path" : "server.R",
+    "properties" : {
+    },
+    "source_on_save" : false,
+    "type" : "r_source"
+}

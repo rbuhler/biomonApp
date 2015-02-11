@@ -1,0 +1,16 @@
+{
+    "contents" : "library(\"analyz\")\nlibrary(\"biomonCore\")\n\nshinyUI(\n  fluidPage(   \n    titlePanel('BIOMON'),\n    # ---\n    sidebarLayout(\n      position = 'left',sidebarPanel(\n        #--- Analysis\n          uiOutput('sInputAnalysis'),\n          hr(),\n        # --- Data Matrices\n          h4('Data Matrices'),\n          uiOutput('sInputAttributes'),\n          uiOutput('sInputSpecies'),\n          uiOutput('sInputFactor'),\n          uiOutput('sInputEnvironment'),\n          uiOutput('sInputSpace')\n      ),\n      mainPanel(    \n        fluidRow(\n          column( 12,\n                  actionButton('btnExecute', label='Execute'),\n                  verbatimTextOutput('execMsg')\n          ) #column        \n        ), #fluidRow\n        fluidRow(\n          column( 12,\n                  h3('Upload Files'),\n                  hr(),\n                  fluidRow(\n                    column( 6,\n                            fileInput('file1', 'Analysis File', accept=c('text/csv','text/comma-separated values,text/plain','.csv')),\n                            textOutput('analysisUploaded'),\n                            hr(),\n                            textOutput('analysisPath')\n                            ),\n                    column( 6,\n                            fileInput('file2', 'Matrix File', accept=c('text/csv','text/comma-separated values,text/plain','.csv')),\n                            textOutput('matrixUploaded'),\n                            hr(),\n                            textOutput('matricesPath')\n                      ),\n                    hr()\n                    )\n          ) #column\n        )#fluidRow\n      ) #mainPanel\n    ) #sidebarLayout\n  ) #fluid page\n) #shinyUI",
+    "created" : 1423617608159.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "18109143",
+    "id" : "1070B959",
+    "lastKnownWriteTime" : 1423427805,
+    "path" : "~/Dev/R/biomonApp/ui.R",
+    "project_path" : "ui.R",
+    "properties" : {
+    },
+    "source_on_save" : false,
+    "type" : "r_source"
+}
